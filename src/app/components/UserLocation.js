@@ -1,7 +1,7 @@
 function UserLocation() {
   return (
-    <div className="border-b-2 border-black/[0.2] flex justify-between mt-14 pb-1">
-      <div>
+    <div className="border-b-2 mx-4 border-black/[0.2] flex flex-col-reverse gap-4 md:flex-row md:justify-between md:mt-14 mt-8 md:pb-1">
+      <div className="md:mx-0">
         <h3 className="text-[#1D2540] font-bold text-xl">
           Agra, Uttar Pradesh
         </h3>
