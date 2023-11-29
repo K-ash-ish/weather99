@@ -41,7 +41,7 @@ function WeatherCard({ sunrise, sunset, data }) {
 
           <li className="flex flex-col ">
             <p className="font-bold md:hidden">Humidity</p>
-            <p className="font-normal text-sm">76%</p>
+            <p className="font-normal text-sm">{data?.main?.humidity}%</p>
           </li>
 
           <li className="flex flex-col ">
