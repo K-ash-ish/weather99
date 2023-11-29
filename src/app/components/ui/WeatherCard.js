@@ -1,8 +1,7 @@
 import { data } from "@/app/constant";
 import { kelvinToCelsius, kelvinToFahrenheit } from "@/app/util/convertTemp";
 import filterForcast from "@/app/util/filterForcast";
-import formatDate from "@/app/util/formatDate";
-import formatTime from "@/app/util/formatTime";
+import { formatDate } from "@/app/util/formatDateandTime";
 import Image from "next/image";
 
 function WeatherCard({ sunrise, sunset, data }) {

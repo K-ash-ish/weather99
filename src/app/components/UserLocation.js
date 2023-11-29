@@ -1,14 +1,13 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useReducer, useState } from "react";
+import { useState } from "react";
 import useForcast from "../hooks/useForcast";
 import formatCoordinates from "../util/formatCoordinates";
 import { useSelector } from "react-redux";
 
 function UserLocation() {
   const [userInput, setUserInput] = useState("");
-  const [weatherDetails, setWeatherDetails] = useState();
-  useForcast(userInput);
+  // useForcast(userInput);
   const data = useSelector((state) => state.forcast.forcast);
   const coordinates = formatCoordinates(
     data?.city?.coord?.lat,
@@ -16,7 +15,9 @@ function UserLocation() {
   );
   const handleLocation = (e) => {
     setUserInput(e.target.value);
-    
+  };
+  const handleClear = (e) => {
+    setUserInput("");
   };
 
   return (
@@ -33,7 +34,7 @@ function UserLocation() {
         </div>
         <p className="text-[#606060] text-sm mt-1">{coordinates}</p>
       </div>
-      <div className="relative  w-72 md:flex md:flex-row  md:items-center">
+      <div className="relative  w-72 md:flex md:flex-row  md:items-center ">
         <Image
           alt="search-img"
           className="absolute bottom-2 right-4"
@@ -48,6 +49,15 @@ function UserLocation() {
           placeholder="Search your city here..."
           className="bg-white placeholder:italic placeholder:text-sm placeholder:text-[#444444] px-3 py-2 rounded-md border-0 w-72 shadow-sm "
         />
+        {userInput.length >= 3 && (
+          <button
+            type="button"
+            onClick={handleClear}
+            className="absolute  right-12  bottom-3 font-thin text-sm text-red-500"
+          >
+            clear
+          </button>
+        )}
       </div>
     </div>
   );

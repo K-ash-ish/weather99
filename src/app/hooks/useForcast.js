@@ -5,19 +5,23 @@ import { fetchSuccess } from "../features/forcast/forcastSlice";
 
 function useForcast(userInput) {
   const debouncedValue = useDebounce(userInput, 1500);
+  const controller = new AbortController();
   const dispatch = useDispatch();
-  const [data, setData] = useState();
   useEffect(() => {
     (async () => {
+      const signal = controller.signal;
       if (debouncedValue?.length >= 3) {
-        const data = await fetch(`/api/forcast?value=${debouncedValue}`);
+        const data = await fetch(`/api/forcast?value=${debouncedValue}`, {
+          signal,
+        });
         const dataJson = await data.json();
         dispatch(fetchSuccess(dataJson));
       }
     })();
+    return () => {
+      controller.abort("Cancel request");
+    };
   }, [debouncedValue]);
-
-  return data;
 }
 
 export default useForcast;

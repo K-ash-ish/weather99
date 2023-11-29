@@ -1,13 +1,10 @@
 "use client";
-import { useEffect, useReducer, useState } from "react";
-import useForcast from "../hooks/useForcast";
 import WeatherCard from "./ui/WeatherCard";
 import { useSelector } from "react-redux";
-import formatTime from "../util/formatTime";
 import filterForcast from "../util/filterForcast";
+import { formatTime } from "../util/formatDateandTime";
 
 function Forcast() {
-  const [weatherDetails, setWeatherDetails] = useState();
   const data = useSelector((state) => state.forcast.forcast);
   const sunrise = formatTime(data?.city?.sunrise);
   const sunset = formatTime(data?.city?.sunset);
