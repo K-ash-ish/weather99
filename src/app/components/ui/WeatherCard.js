@@ -5,7 +5,6 @@ import { formatDate } from "@/app/util/formatDateandTime";
 import Image from "next/image";
 
 function WeatherCard({ sunrise, sunset, data }) {
-  console.log("data ", data);
   const date = formatDate(data.dt);
   const celsiusMax = Math.floor(kelvinToCelsius(data?.main?.temp_max));
   const fahrenheitMax = Math.floor(kelvinToFahrenheit(data?.main?.temp_max));

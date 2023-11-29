@@ -13,7 +13,6 @@ function UserLocation() {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.forcast);
   const forcastData = data.forcast;
-  console.log(data);
   const coordinates = formatCoordinates(
     forcastData?.city?.coord?.lat,
     forcastData?.city?.coord?.lon
