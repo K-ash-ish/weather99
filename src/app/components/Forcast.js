@@ -3,12 +3,14 @@ import WeatherCard from "./ui/WeatherCard";
 import { useSelector } from "react-redux";
 import filterForcast from "../util/filterForcast";
 import { formatTime } from "../util/formatDateandTime";
+import { CardShimmer } from "./ui/Shimmer";
 
 function Forcast() {
-  const data = useSelector((state) => state.forcast.forcast);
-  const sunrise = formatTime(data?.city?.sunrise);
-  const sunset = formatTime(data?.city?.sunset);
-  const dayWiseForcast = filterForcast(data.list);
+  const data = useSelector((state) => state.forcast);
+  const forcastData = data.forcast;
+  const sunrise = formatTime(forcastData?.city?.sunrise);
+  const sunset = formatTime(forcastData?.city?.sunset);
+  const dayWiseForcast = filterForcast(forcastData.list);
   return (
     <section className="mx-2 md:mx-0 flex md:flex-row flex-col md:gap-12 gap-6">
       <div className=" text-black py-2 md:mt-8">
@@ -26,16 +28,22 @@ function Forcast() {
         </ul>
       </div>
       <div className="flex md:flex-row flex-col md:flex-wrap md:gap-8 ">
-        {dayWiseForcast?.map((data, i) => {
-          return (
-            <WeatherCard
-              key={i}
-              sunrise={sunrise}
-              sunset={sunset}
-              data={data}
-            />
-          );
-        })}
+        {data.loading
+          ? Array(5)
+              .fill("")
+              .map((value, i) => {
+                return <CardShimmer key={i} />;
+              })
+          : dayWiseForcast?.map((data, i) => {
+              return (
+                <WeatherCard
+                  key={i}
+                  sunrise={sunrise}
+                  sunset={sunset}
+                  data={data}
+                />
+              );
+            })}
       </div>
     </section>
   );

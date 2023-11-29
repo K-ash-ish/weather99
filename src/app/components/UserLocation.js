@@ -3,26 +3,32 @@ import Image from "next/image";
 import { useState } from "react";
 import useForcast from "../hooks/useForcast";
 import formatCoordinates from "../util/formatCoordinates";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { SmallShimmer } from "./ui/Shimmer";
+import { reset } from "../features/forcast/forcastSlice";
 
 function UserLocation() {
   const [userInput, setUserInput] = useState("");
-  // useForcast(userInput);
-  const data = useSelector((state) => state.forcast.forcast);
+  useForcast(userInput);
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.forcast);
+  const forcastData = data.forcast;
+  console.log(data);
   const coordinates = formatCoordinates(
-    data?.city?.coord?.lat,
-    data?.city?.coord?.lon
+    forcastData?.city?.coord?.lat,
+    forcastData?.city?.coord?.lon
   );
   const handleLocation = (e) => {
     setUserInput(e.target.value);
   };
   const handleClear = (e) => {
+    dispatch(reset());
     setUserInput("");
   };
 
   return (
     <div className="border-b-2 mx-4 border-black/[0.2] flex flex-col-reverse gap-4 md:flex-row md:justify-between md:mt-14 mt-8 md:pb-1">
-      <div className="md:mx-0">
+      <div className="md:mx-0 ">
         <div className="text-[#1D2540] font-bold text-xl flex gap-1">
           <Image
             alt="location-img"
@@ -30,9 +36,13 @@ function UserLocation() {
             height={24}
             width={24}
           />
-          <h3>{data?.city?.name}</h3>
+          {data.loading ? <SmallShimmer /> : <h3>{forcastData?.city?.name}</h3>}
         </div>
-        <p className="text-[#606060] text-sm mt-1">{coordinates}</p>
+        {data.loading ? (
+          <SmallShimmer />
+        ) : (
+          <p className="text-[#606060] text-sm mt-1">{coordinates}</p>
+        )}
       </div>
       <div className="relative  w-72 md:flex md:flex-row  md:items-center ">
         <Image

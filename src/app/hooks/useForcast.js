@@ -1,7 +1,7 @@
 import { useEffect, useReducer, useState } from "react";
 import useDebounce from "./useDebounce";
 import { useDispatch } from "react-redux";
-import { fetchSuccess } from "../features/forcast/forcastSlice";
+import { fetchStart, fetchSuccess } from "../features/forcast/forcastSlice";
 
 function useForcast(userInput) {
   const debouncedValue = useDebounce(userInput, 1500);
@@ -11,6 +11,7 @@ function useForcast(userInput) {
     (async () => {
       const signal = controller.signal;
       if (debouncedValue?.length >= 3) {
+        dispatch(fetchStart());
         const data = await fetch(`/api/forcast?value=${debouncedValue}`, {
           signal,
         });
