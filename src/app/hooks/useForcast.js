@@ -10,7 +10,6 @@ function useForcast(userInput) {
   useEffect(() => {
     (async () => {
       if (debouncedValue?.length >= 3) {
-        console.log(debouncedValue);
         const data = await fetch(`/api/forcast?value=${debouncedValue}`);
         const dataJson = await data.json();
         dispatch(fetchSuccess(dataJson));

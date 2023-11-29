@@ -12,8 +12,6 @@ function Forcast() {
   const sunrise = formatTime(data?.city?.sunrise);
   const sunset = formatTime(data?.city?.sunset);
   const dayWiseForcast = filterForcast(data.list);
-  console.log(dayWiseForcast);
-  // console.log("from new ", sunrise, sunset);
   return (
     <section className="mx-2 md:mx-0 flex md:flex-row flex-col md:gap-12 gap-6">
       <div className=" text-black py-2 md:mt-8">
