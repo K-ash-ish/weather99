@@ -21,7 +21,7 @@ function WeatherCard({ sunrise, sunset, data }) {
             width={60}
           /> */}
           {/* <Image alt="weather" src="/sunny.svg" height={60} width={60} /> */}
-          {/* <h2 className="text-xl pb-2  font-bold ">{data?.weather[0]?.main}</h2> */}
+          <h2 className="text-xl pb-2  font-bold ">{data?.weather[0]?.main}</h2>
         </div>
         <ul className="flex md:flex-col flex-row justify-center gap-3 font-bold text-sm  py-2">
           <li className="flex flex-col  ">
