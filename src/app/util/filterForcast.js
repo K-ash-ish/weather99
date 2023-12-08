@@ -1,5 +1,3 @@
-import formatDate from "./formatDate";
-
 function filterForcast(data) {
   const uniqueDatesMap = {};
   data?.forEach((item) => {
@@ -9,7 +7,7 @@ function filterForcast(data) {
     }
   });
 
-  const uniqueForecasts = Object.values(uniqueDatesMap);
+  const uniqueForecasts = Object.values(uniqueDatesMap).slice(0, 5);
   return uniqueForecasts;
 }
 

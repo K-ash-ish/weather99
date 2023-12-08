@@ -4,6 +4,7 @@ import Forcast from "./components/Forcast";
 import Navbar from "./components/Navbar";
 import UserLocation from "./components/UserLocation";
 import { store } from "./store";
+import useCurrentLocation from "./hooks/useCurrentLocation";
 
 export default function Home() {
   return (

@@ -3,26 +3,23 @@ import useDebounce from "./useDebounce";
 import { useDispatch } from "react-redux";
 import { fetchStart, fetchSuccess } from "../features/forcast/forcastSlice";
 
-function useForcast(userInput) {
-  const debouncedValue = useDebounce(userInput, 1500);
-  const controller = new AbortController();
+function useForcast() {
+  const [coordinates, setCoordinates] = useState();
   const dispatch = useDispatch();
   useEffect(() => {
     (async () => {
-      const signal = controller.signal;
-      if (debouncedValue?.length >= 3) {
+      if (coordinates?.lat && coordinates?.lon) {
         dispatch(fetchStart());
-        const data = await fetch(`/api/forcast?value=${debouncedValue}`, {
-          signal,
-        });
+        const data = await fetch(
+          `/api/forcast?lat=${coordinates?.lat}&lon=${coordinates?.lon}`
+        );
         const dataJson = await data.json();
+        console.log(dataJson);
         dispatch(fetchSuccess(dataJson));
       }
     })();
-    return () => {
-      controller.abort("Cancel request");
-    };
-  }, [debouncedValue]);
+  }, [coordinates]);
+  return { setCoordinates };
 }
 
 export default useForcast;
