@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useForcast from "../hooks/useForcast";
 import formatCoordinates from "../util/formatCoordinates";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,64 +8,13 @@ import { SmallShimmer } from "./ui/Shimmer";
 import { reset } from "../features/forcast/forcastSlice";
 import useSearchLocation from "../hooks/useSearchLocation";
 import useCurrentLocation from "../hooks/useCurrentLocation";
+import useReset from "../hooks/useReset";
 
 function UserLocation() {
   const [userInput, setUserInput] = useState("");
   useCurrentLocation();
-  // useForcast(userInput);
   const { suggestions, setSuggestions } = useSearchLocation(userInput);
-  // console.log(suggestions);
-  // const suggestions = [
-  //   {
-  //     name: "Jabal",
-  //     local_names: {
-  //       en: "Jabal",
-  //     },
-  //     lat: 27.664939,
-  //     lon: 66.237993,
-  //     country: "PK",
-  //     state: "Balochistan",
-  //   },
-  //   {
-  //     name: "Jabal",
-  //     local_names: {
-  //       en: "Jabal",
-  //       fr: "Jabal",
-  //       ascii: "Jabal, Jabal",
-  //       feature_name: "Jabal, Jabal",
-  //       ar: "جبل",
-  //       de: "Jabal",
-  //     },
-  //     lat: 31.1708952,
-  //     lon: 45.7442726,
-  //     country: "IQ",
-  //     state: "Al-Muthanna Governorate",
-  //   },
-  //   {
-  //     name: "Jabal",
-  //     local_names: {
-  //       en: "Jabal",
-  //     },
-  //     lat: 32.2905823,
-  //     lon: 74.9772059,
-  //     country: "PK",
-  //     state: "Punjab",
-  //   },
-  //   {
-  //     name: "Jabal",
-  //     lat: 31.515438,
-  //     lon: 77.1429062,
-  //     country: "IN",
-  //     state: "Himachal Pradesh",
-  //   },
-  //   {
-  //     name: "Jabal",
-  //     lat: 31.4572675,
-  //     lon: 76.8466616,
-  //     country: "IN",
-  //     state: "Himachal Pradesh",
-  //   },
-  // ];
+
   const dispatch = useDispatch();
   const data = useSelector((state) => state.forcast);
   const forcastData = data.forcast;
@@ -74,6 +23,11 @@ function UserLocation() {
     forcastData?.city?.coord?.lon
   );
   const { setCoordinates } = useForcast();
+  const { resetBtn } = useReset();
+  useEffect(() => {
+    setUserInput("");
+  }, [resetBtn]);
+
   const handleInput = (e) => {
     setUserInput(e.target.value);
   };

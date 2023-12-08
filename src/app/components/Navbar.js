@@ -2,13 +2,16 @@ import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { reset } from "../features/forcast/forcastSlice";
 import { useRouter } from "next/navigation";
+import useReset from "../hooks/useReset";
 
 function Navbar() {
   const dispatch = useDispatch();
+  const { resetBtn, setResetBtn } = useReset();
   const router = useRouter();
   function handleClick(e) {
     e.preventDefault();
-    // dispatch(reset());
+    dispatch(reset());
+    setResetBtn(!resetBtn);
   }
 
   return (
