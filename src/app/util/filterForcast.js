@@ -7,7 +7,7 @@ function filterForcast(data) {
     }
   });
 
-  const uniqueForecasts = Object.values(uniqueDatesMap).slice(0, 5);
+  const uniqueForecasts = Object.values(uniqueDatesMap).slice(1, 6);
   return uniqueForecasts;
 }
 

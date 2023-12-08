@@ -12,5 +12,12 @@ function formatDate(timestamp) {
   const year = date.getFullYear();
   return `${day} ${month} ${year}`;
 }
+function formatToUnix(date) {
+  const dateArr = date.split("-");
+  const timeStamp = Math.floor(
+    new Date(`"${dateArr[0]}.${dateArr[1]}.${dateArr[2]}`).getTime() / 1000
+  );
+  return timeStamp;
+}
 
-export { formatTime, formatDate };
+export { formatTime, formatDate, formatToUnix };
