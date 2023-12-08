@@ -1,12 +1,14 @@
 import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { reset } from "../features/forcast/forcastSlice";
+import { useRouter } from "next/navigation";
 
 function Navbar() {
   const dispatch = useDispatch();
+  const router = useRouter();
   function handleClick(e) {
     e.preventDefault();
-    dispatch(reset());
+    // dispatch(reset());
   }
 
   return (
