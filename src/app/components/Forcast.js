@@ -12,8 +12,8 @@ function Forcast() {
   const sunset = formatTime(forcastData?.city?.sunset);
   const dayWiseForcast = filterForcast(forcastData.list);
   return (
-    <section className="mx-2 md:mx-0 flex md:flex-row flex-col md:gap-12 gap-6">
-      <div className=" text-black py-2 md:mt-8">
+    <section className="mx-2 md:mx-0 flex md:flex-row  md:items-center flex-col md:gap-12 gap-6 ">
+      <div className=" text-black py-2 md:mt-7 ">
         <div>
           <p className="text-xs">Select Date:</p>
           <input type="date" className="placeholder:text-red-300" />

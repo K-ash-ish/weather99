@@ -15,11 +15,12 @@ function WeatherCard({ sunrise, sunset, data }) {
       <h2 className="text-lg font-bold text-[#444444]">{date}</h2>
       <div className="w-full text-center bg-gradient-to-b from-[#464646] to-[#1D2540] text-white py-2 border-0 rounded-md">
         <div className="flex items-center justify-center border-gray-500 border-b-[1px]">
-          {/* <Image
-            src="http://openweathermap.org/img/w/10d.png"
+          <Image
+            src={`http://openweathermap.org/img/w/${data?.weather[0]?.icon}.png`}
+            alt="weather status"
             height={60}
             width={60}
-          /> */}
+          />
           {/* <Image alt="weather" src="/sunny.svg" height={60} width={60} /> */}
           <h2 className="text-xl pb-2  font-bold ">{data?.weather[0]?.main}</h2>
         </div>
