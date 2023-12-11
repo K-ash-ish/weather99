@@ -1,28 +1,44 @@
 "use client";
 import WeatherCard from "./ui/WeatherCard";
 import { useSelector } from "react-redux";
-import filterForcast from "../util/filterForcast";
+import filterForcast, { filterForcastByDate } from "../util/filterForcast";
 import { formatTime, formatToUnix } from "../util/formatDateandTime";
 import { CardShimmer } from "./ui/Shimmer";
 import usePastForecast from "../hooks/usePastForecast";
-import PastWeatherCard from "./ui/PastWeatherCard";
+import { useEffect, useState } from "react";
 
 function Forcast() {
   const data = useSelector((state) => state.forcast);
+  const [dayWiseForcast, setDayWiseForcast] = useState();
+  const [pastDate, setPastDate] = useState(false);
   const { setTimeStamp } = usePastForecast();
-  const forcastData = data.forcast;
-  const pastForcast = data.pastForcast;
-  console.log(pastForcast);
+  const forcastData = data?.forcast;
+  const pastForcast = data?.pastForcast;
 
   const sunrise = formatTime(forcastData?.city?.sunrise);
   const sunset = formatTime(forcastData?.city?.sunset);
-  const dayWiseForcast = filterForcast(forcastData.list);
+  // const dayWiseForcast = filterForcast(forcastData?.list);
+
+  useEffect(() => {
+    setDayWiseForcast(filterForcast(forcastData?.list));
+  }, [data?.forcast]);
+
   function handleDate(e) {
     const timeStamp = formatToUnix(e.target.value);
-    if (timeStamp < Math.floor(new Date().getTime() / 1000)) {
+    const selectedDate = e.target.value.split("-")[2];
+    const currentDate = new Date().getDate();
+
+    if (selectedDate < currentDate) {
+      console.log("i'm in");
+      setPastDate(true);
       setTimeStamp(timeStamp);
+    } else if (selectedDate >= currentDate) {
+      const forcastForDate = filterForcastByDate(forcastData, selectedDate);
+      setPastDate(false);
+      setDayWiseForcast([forcastForDate]);
     }
   }
+
   return (
     <section className="mx-2 md:mx-0 flex md:flex-row  flex-col md:gap-12 gap-6 ">
       <div className=" text-black py-3 md:mt-7 ">
@@ -44,7 +60,7 @@ function Forcast() {
         </ul>
       </div>
       <div className="flex md:flex-row flex-col md:flex-wrap md:gap-8 ">
-        {pastForcast?.hourly?.length > 0 ? (
+        {pastDate ? (
           <WeatherCard
             sunrise={formatTime(pastForcast?.current?.sunrise)}
             sunset={formatTime(pastForcast?.current?.sunset)}

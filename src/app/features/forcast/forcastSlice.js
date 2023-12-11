@@ -23,9 +23,17 @@ export const forcastSlice = createSlice({
       state.loading = false;
       state.pastForcast = action.payload;
     },
+    resetPastForcast: (state, action) => {
+      state.pastForcast = {};
+    },
   },
 });
 
-export const { fetchSuccess, reset, fetchStart, pastForcast } =
-  forcastSlice.actions;
+export const {
+  fetchSuccess,
+  reset,
+  fetchStart,
+  pastForcast,
+  resetPastForcast,
+} = forcastSlice.actions;
 export default forcastSlice.reducer;

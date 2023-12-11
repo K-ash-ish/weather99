@@ -14,7 +14,6 @@ function WeatherCard({
   temp_min,
   date,
 }) {
-  console.log(date);
   const formattedDate = formatDate(date);
   const celsiusMax = Math.floor(kelvinToCelsius(temp_max));
   const fahrenheitMax = Math.floor(kelvinToFahrenheit(temp_max));

@@ -1,7 +1,7 @@
 import { useEffect, useReducer, useState } from "react";
 import useDebounce from "./useDebounce";
 import { useDispatch } from "react-redux";
-import { fetchStart, fetchSuccess } from "../features/forcast/forcastSlice";
+import { fetchStart, fetchSuccess, resetPastForcast } from "../features/forcast/forcastSlice";
 
 function useForcast() {
   const [coordinates, setCoordinates] = useState();
@@ -15,6 +15,7 @@ function useForcast() {
         );
         const dataJson = await data.json();
         console.log(dataJson);
+        dispatch(resetPastForcast())
         dispatch(fetchSuccess(dataJson));
       }
     })();
