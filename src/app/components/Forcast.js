@@ -29,7 +29,6 @@ function Forcast() {
     const currentDate = new Date().getDate();
 
     if (selectedDate < currentDate) {
-      console.log("i'm in");
       setPastDate(true);
       setTimeStamp(timeStamp);
     } else if (selectedDate >= currentDate) {

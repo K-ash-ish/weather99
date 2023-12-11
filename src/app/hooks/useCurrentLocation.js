@@ -7,7 +7,6 @@ const useCurrentLocation = () => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
-      console.log(latitude, longitude);
       setCoordinates(() => {
         return { lat: latitude, lon: longitude };
       });

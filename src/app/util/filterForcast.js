@@ -2,7 +2,6 @@ function filterForcast(data) {
   const uniqueDatesMap = {};
   data?.forEach((item) => {
     const date = item.dt_txt.split(" ")[0];
-    // console.log(date);
     if (!uniqueDatesMap[date]) {
       uniqueDatesMap[date] = item;
     }

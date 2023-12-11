@@ -14,7 +14,6 @@ function useForcast() {
           `/api/forcast?lat=${coordinates?.lat}&lon=${coordinates?.lon}`
         );
         const dataJson = await data.json();
-        console.log(dataJson);
         dispatch(resetPastForcast())
         dispatch(fetchSuccess(dataJson));
       }
