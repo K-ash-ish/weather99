@@ -60,16 +60,20 @@ function Forcast() {
       </div>
       <div className="flex md:flex-row flex-col md:flex-wrap md:gap-8 ">
         {pastDate ? (
-          <WeatherCard
-            sunrise={formatTime(pastForcast?.current?.sunrise)}
-            sunset={formatTime(pastForcast?.current?.sunset)}
-            main={pastForcast?.current?.weather[0]?.main}
-            icon={pastForcast?.current?.weather[0]?.icon}
-            humidity={pastForcast?.current?.humidity}
-            temp_max={pastForcast?.current?.temp}
-            temp_min={pastForcast?.current?.temp}
-            date={pastForcast?.current?.dt}
-          />
+          data?.loading ? (
+            <CardShimmer />
+          ) : (
+            <WeatherCard
+              sunrise={formatTime(pastForcast?.current?.sunrise)}
+              sunset={formatTime(pastForcast?.current?.sunset)}
+              main={pastForcast?.current?.weather[0]?.main}
+              icon={pastForcast?.current?.weather[0]?.icon}
+              humidity={pastForcast?.current?.humidity}
+              temp_max={pastForcast?.current?.temp}
+              temp_min={pastForcast?.current?.temp}
+              date={pastForcast?.current?.dt}
+            />
+          )
         ) : data.loading ? (
           Array(5)
             .fill("")

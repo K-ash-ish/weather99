@@ -18,11 +18,12 @@ function usePastForecast() {
   useEffect(() => {
     (async () => {
       if (coordinates?.lat && coordinates?.lon) {
-        // dispatch(fetchStart());
+        dispatch(fetchStart());
         const data = await fetch(
           `/api/forcast/past?lat=${coordinates?.lat}&lon=${coordinates?.lon}&date=${timeStamp}`
         );
         const dataJson = await data.json();
+        
         dispatch(pastForcast(dataJson));
       }
     })();
