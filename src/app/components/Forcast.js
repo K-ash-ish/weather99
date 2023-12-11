@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 function Forcast() {
   const data = useSelector((state) => state.forcast);
-  const [dayWiseForcast, setDayWiseForcast] = useState();
+  const [dayWiseForcast, setDayWiseForcast] = useState([]);
   const [pastDate, setPastDate] = useState(false);
   const { setTimeStamp } = usePastForecast();
   const forcastData = data?.forcast;
@@ -60,7 +60,9 @@ function Forcast() {
       </div>
       <div className="flex md:flex-row flex-col md:flex-wrap md:gap-8 ">
         {pastDate ? (
-          data?.loading ? (
+          pastForcast.cod === "400" ? (
+            <h1 className="uppercase">{pastForcast?.message}</h1>
+          ) : data?.loading ? (
             <CardShimmer />
           ) : (
             <WeatherCard

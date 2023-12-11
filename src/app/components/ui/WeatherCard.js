@@ -19,7 +19,7 @@ function WeatherCard({
   const fahrenheitMax = Math.floor(kelvinToFahrenheit(temp_max));
   const celsiusMin = Math.floor(kelvinToCelsius(temp_min));
   const fahrenheitMin = Math.floor(kelvinToFahrenheit(temp_min));
-  return (
+  return date ? (
     <div className=" md:w-32 my-2 md:m-0 flex flex-col items-center">
       <h2 className="text-lg font-bold text-[#444444]">{formattedDate}</h2>
       <div className="w-full text-center bg-gradient-to-b from-[#464646] to-[#1D2540] text-white py-2 border-0 rounded-md">
@@ -65,6 +65,8 @@ function WeatherCard({
         </ul>
       </div>
     </div>
+  ) : (
+    <p>No Data found</p>
   );
 }
 
