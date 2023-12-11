@@ -24,8 +24,8 @@ function Forcast() {
     }
   }
   return (
-    <section className="mx-2 md:mx-0 flex md:flex-row  md:items-center flex-col md:gap-12 gap-6 ">
-      <div className=" text-black py-2 md:mt-7 ">
+    <section className="mx-2 md:mx-0 flex md:flex-row  flex-col md:gap-12 gap-6 ">
+      <div className=" text-black py-3 md:mt-7 ">
         <div>
           <p className="text-xs">Select Date:</p>
           <input
@@ -45,13 +45,15 @@ function Forcast() {
       </div>
       <div className="flex md:flex-row flex-col md:flex-wrap md:gap-8 ">
         {pastForcast?.hourly?.length > 0 ? (
-          <PastWeatherCard
+          <WeatherCard
             sunrise={formatTime(pastForcast?.current?.sunrise)}
             sunset={formatTime(pastForcast?.current?.sunset)}
             main={pastForcast?.current?.weather[0]?.main}
             icon={pastForcast?.current?.weather[0]?.icon}
             humidity={pastForcast?.current?.humidity}
-            temperature={pastForcast?.current?.temp}
+            temp_max={pastForcast?.current?.temp}
+            temp_min={pastForcast?.current?.temp}
+            date={pastForcast?.current?.dt}
           />
         ) : data.loading ? (
           Array(5)
@@ -66,7 +68,12 @@ function Forcast() {
                 key={i}
                 sunrise={sunrise}
                 sunset={sunset}
-                data={data}
+                main={data?.weather[0]?.main}
+                icon={data?.weather[0]?.icon}
+                humidity={data?.main?.humidity}
+                temp_max={data?.main?.temp_max}
+                temp_min={data?.main?.temp_min}
+                date={data?.dt}
               />
             );
           })
