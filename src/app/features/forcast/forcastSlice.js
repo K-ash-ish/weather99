@@ -3,6 +3,7 @@ const initialState = {
   loading: false,
   forcast: {},
   pastForcast: {},
+  resetAll: false,
 };
 export const forcastSlice = createSlice({
   name: "forcast",
@@ -16,7 +17,9 @@ export const forcastSlice = createSlice({
       state.forcast = action.payload;
     },
     reset: (state, action) => {
-      state.forcast = initialState;
+      state.resetAll = !state.resetAll;
+      state.forcast = initialState.forcast;
+      state.pastForcast = initialState.pastForcast;
       state.loading = false;
     },
     pastForcast: (state, action) => {

@@ -23,7 +23,6 @@ function usePastForecast() {
           `/api/forcast/past?lat=${coordinates?.lat}&lon=${coordinates?.lon}&date=${timeStamp}`
         );
         const dataJson = await data.json();
-        console.log(dataJson);
         if (dataJson.cod === "400") {
           dispatch(pastForcast({ cod: 400, message: dataJson.message }));
         }

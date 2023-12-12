@@ -11,23 +11,29 @@ function Forcast() {
   const data = useSelector((state) => state.forcast);
   const [dayWiseForcast, setDayWiseForcast] = useState([]);
   const [pastDate, setPastDate] = useState(false);
+  const [datePicker, setDatePicker] = useState("");
+
   const { setTimeStamp } = usePastForecast();
+  const resetAll = data?.resetAll;
   const forcastData = data?.forcast;
   const pastForcast = data?.pastForcast;
 
   const sunrise = formatTime(forcastData?.city?.sunrise);
   const sunset = formatTime(forcastData?.city?.sunset);
   // const dayWiseForcast = filterForcast(forcastData?.list);
+  useEffect(() => {
+    setDatePicker("");
+  }, [resetAll]);
 
   useEffect(() => {
     setDayWiseForcast(filterForcast(forcastData?.list));
   }, [data?.forcast]);
 
   function handleDate(e) {
+    setDatePicker(e.target.value);
     const timeStamp = formatToUnix(e.target.value);
     const selectedDate = e.target.value.split("-")[2];
     const currentDate = new Date().getDate();
-
     if (selectedDate < currentDate) {
       setPastDate(true);
       setTimeStamp(timeStamp);
@@ -44,6 +50,7 @@ function Forcast() {
         <div>
           <p className="text-xs">Select Date:</p>
           <input
+            value={datePicker}
             type="date"
             className="placeholder:text-red-300"
             onChange={handleDate}

@@ -8,7 +8,6 @@ import { SmallShimmer } from "./ui/Shimmer";
 import { reset } from "../features/forcast/forcastSlice";
 import useSearchLocation from "../hooks/useSearchLocation";
 import useCurrentLocation from "../hooks/useCurrentLocation";
-import useReset from "../hooks/useReset";
 
 function UserLocation() {
   const [userInput, setUserInput] = useState("");
@@ -17,16 +16,19 @@ function UserLocation() {
 
   const dispatch = useDispatch();
   const data = useSelector((state) => state.forcast);
+  const resetAll = useSelector((state) => state.forcast.resetAll);
   const forcastData = data.forcast;
   const coordinates = formatCoordinates(
     forcastData?.city?.coord?.lat,
     forcastData?.city?.coord?.lon
   );
+
   const { setCoordinates } = useForcast();
-  const { resetBtn } = useReset();
+
   useEffect(() => {
     setUserInput("");
-  }, [resetBtn]);
+    setSuggestions("");
+  }, [resetAll]);
 
   const handleInput = (e) => {
     setUserInput(e.target.value);
@@ -78,7 +80,7 @@ function UserLocation() {
           placeholder="Search your city here..."
           className="bg-white placeholder:italic placeholder:text-sm placeholder:text-[#444444] px-3 py-2 rounded-md border-0 w-72 shadow-sm "
         />
-        {suggestions.length > 0 && (
+        {suggestions?.length > 0 && (
           <div className="bg-white p-2 w-72 absolute top-12">
             <ul className="h-auto">
               {suggestions?.map((city, index) => {
